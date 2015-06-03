@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Local_gaming_peers_finder</string>
+
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_menu_activity">Menu_activity</string>
+</resources>
