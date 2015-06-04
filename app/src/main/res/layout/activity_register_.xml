@@ -5,7 +5,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/register_screen"
-    tools:context="com.org.dungtranvu.local_gaming_peers_finder.Register_Activity">
+    tools:context="com.org.dungtranvu.local_gaming_peers_finder.Register_Activity"
+    android:id="@+id/layout">
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,53 +62,57 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="OK"
-        android:id="@+id/textView8"
+        android:id="@+id/ok"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:onClick="create_account"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="CANCEL"
-        android:id="@+id/textView9"
+        android:id="@+id/cancel"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="cancel"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/username"
         android:layout_above="@+id/textView5"
         android:layout_alignStart="@+id/textView3"
-        android:layout_toStartOf="@+id/textView8" />
+        android:layout_toStartOf="@+id/ok" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/password"
         android:layout_above="@+id/textView6"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_alignStart="@+id/username"
+        android:layout_alignEnd="@+id/username" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/password2"
         android:layout_above="@+id/textView7"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2" />
+        android:layout_alignStart="@+id/password"
+        android:layout_alignEnd="@+id/password" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/editText4"
+        android:id="@+id/phone_number"
         android:layout_alignBottom="@+id/textView7"
-        android:layout_alignStart="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3" />
+        android:layout_alignStart="@+id/password2"
+        android:layout_alignEnd="@+id/password2" />
 
 </RelativeLayout>

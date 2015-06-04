@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.org.dungtranvu.local_gaming_peers_finder.Chat_Fragment">
+    tools:context="com.org.dungtranvu.local_gaming_peers_finder.DashBoard_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="This is Chat Fragment"
-        android:id="@+id/textView8"
+        android:text="This is DashBoard fragment"
+        android:id="@+id/textView9"
         android:layout_gravity="center_horizontal|top" />
 </FrameLayout>

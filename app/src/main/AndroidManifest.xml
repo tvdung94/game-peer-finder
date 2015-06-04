@@ -8,8 +8,10 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Chat_Activity"
-            android:label="@string/app_name" >
+            android:name=".Menu_activity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,12 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Menu_activity"
-            android:label="@string/title_activity_menu_activity" >
+            android:name=".Register_Activity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_register_" >
         </activity>
         <activity
-            android:name=".Register_Activity"
-            android:label="@string/title_activity_register_" >
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_main" >
         </activity>
     </application>
 

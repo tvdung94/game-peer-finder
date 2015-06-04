@@ -1,13 +1,20 @@
 package com.org.dungtranvu.local_gaming_peers_finder;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Menu_activity extends ActionBarActivity {
-
+    public void sign_in(View v) {
+        startActivity(new Intent(Menu_activity.this, MainActivity.class));
+    }
+    public void sign_up(View v) {
+        startActivity(new Intent(Menu_activity.this, Register_Activity.class));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

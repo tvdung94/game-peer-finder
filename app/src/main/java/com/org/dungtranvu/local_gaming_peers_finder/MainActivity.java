@@ -2,6 +2,7 @@ package com.org.dungtranvu.local_gaming_peers_finder;
 
 import java.util.Locale;
 
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -17,9 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.support.v4.app.FragmentActivity;
 
 
-public class Chat_Activity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity implements  Chat_Fragment.OnFragmentInteractionListener,
+        DashBoard_Fragment.OnFragmentInteractionListener, Feed_Fragment.OnFragmentInteractionListener,
+LeaderBoard_Fragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -37,9 +41,13 @@ public class Chat_Activity extends ActionBarActivity {
     ViewPager mViewPager;
 
     @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_);
+        setContentView(R.layout.activity_main);
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -48,6 +56,7 @@ public class Chat_Activity extends ActionBarActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
+        //FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
@@ -56,7 +65,7 @@ public class Chat_Activity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_chat_, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -90,18 +99,30 @@ public class Chat_Activity extends ActionBarActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            Fragment f = null;
+            switch (position) {
+                case 0: f = new Feed_Fragment();
+                    break;
+                case 1: f = new Chat_Fragment();
+                    break;
+                case 2: f = new LeaderBoard_Fragment();
+                    break;
+                case 3: f = new DashBoard_Fragment();
+
+            }
+            return f;
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
+            Fragment f = null;
             switch (position) {
                 case 0:
                     return getString(R.string.title_section1).toUpperCase(l);
@@ -142,7 +163,7 @@ public class Chat_Activity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_chat_, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_feed_, container, false);
             return rootView;
         }
     }

@@ -26,7 +26,8 @@
         android:id="@+id/textView"
         android:layout_alignBaseline="@+id/textView"
         android:layout_alignBottom="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
         android:text="Password"
         android:id="@+id/textView2"
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/textView1" />
+        android:layout_alignEnd="@+id/textView1"
+        android:textColor="@android:color/white"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -52,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:id="@+id/name"
+        android:id="@+id/username"
         android:layout_alignTop="@+id/textView1"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/sign_in"
@@ -66,7 +68,10 @@
         android:id="@+id/sign_in"
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp" />
+        android:layout_marginTop="67dp"
+        android:clickable="true"
+        android:onClick="sign_in"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,6 +81,9 @@
         android:id="@+id/sign_up"
         android:layout_below="@+id/sign_in"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp" />
+        android:layout_marginTop="46dp"
+        android:clickable="true"
+        android:onClick="sign_up"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>

@@ -4,10 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 
 public class Register_Activity extends ActionBarActivity {
 
+    public void create_account(View v) {
+        Toast.makeText(Register_Activity.this, "You just created an account", Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    public void cancel(View v) {
+        Toast.makeText(Register_Activity.this,"You just canceled", Toast.LENGTH_LONG).show();
+        finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
