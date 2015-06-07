@@ -1,13 +1,21 @@
 package com.org.dungtranvu.local_gaming_peers_finder;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,6 +37,9 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    View view;
+    Context context;
+    List<Message> message_list = new ArrayList<Message>();
 
     /**
      * Use this factory method to create a new instance of
@@ -83,6 +94,15 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         ts2.setIndicator("Hot");
         tb.addTab(ts2);
 
+        context = getActivity();
+        view = v;
+
+        message_list.add(new Message("tvdung", "hihi", 0));
+        ListView lv = (ListView) v.findViewById(R.id.listView);
+        Message_list_adapter mla = new Message_list_adapter();
+        lv.setAdapter(mla);
+        //lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.new_feed_list_view, message_list));
+
         return v;
     }
 
@@ -103,6 +123,26 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+    public class Message_list_adapter extends ArrayAdapter<Message>  {
+        public Message_list_adapter() {
+            super(context, R.layout.new_feed_list_view, message_list);
+        }
+
+        @Override
+        public View getView(int position, View v, ViewGroup parent) {
+            if (v==null) {
+                v = getActivity().getLayoutInflater().inflate(R.layout.new_feed_list_view, parent, false);
+            }
+            Message message = message_list.get(position);
+            TextView content = (TextView) v.findViewById(R.id.content);
+            content.setText(message.getContent());
+
+
+            return v;
+        }
+    }
+
     @Override
     public void onDestroyView() {
 
