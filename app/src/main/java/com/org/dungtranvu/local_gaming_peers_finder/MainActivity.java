@@ -1,5 +1,6 @@
 package com.org.dungtranvu.local_gaming_peers_finder;
 
+import java.net.Socket;
 import java.util.Locale;
 
 import android.net.Uri;
@@ -39,6 +40,10 @@ LeaderBoard_Fragment.OnFragmentInteractionListener{
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+
+    Socket socket;
+    private static final int Port = 5000;
+    private static final String IP = "10.0.2.2";
 
     @Override
     public void onFragmentInteraction(Uri uri) {

@@ -145,6 +145,10 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onDestroyView() {
+        view =null;
+        context = null;
+        message_list.clear();
+        super.onDestroyView();
 
     }
     @Override

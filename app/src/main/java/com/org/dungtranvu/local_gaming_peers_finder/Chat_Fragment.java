@@ -4,9 +4,24 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,7 +43,12 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
+    List<Message> message_list_2 = new ArrayList<Message>();
+    private static final int SERVERPORT = 5000;
+    private static final String SERVER_IP = "192.168.100.3";
+    Socket socket;
+    ListView lv2;
+    Message_list_adapter_2 mla2;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -51,6 +71,7 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,15 +79,87 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_, container, false);
+        View v = inflater.inflate(R.layout.fragment_chat_, container, false);
+        TabHost tabHost = (TabHost) v.findViewById(R.id.tabHost2);
+        tabHost.setup();
+
+        TabHost.TabSpec ts = tabHost.newTabSpec("Message");
+        ts.setContent(R.id.tab_message);
+        ts.setIndicator("Message");
+        tabHost.addTab(ts);
+
+        TabHost.TabSpec ts2 = tabHost.newTabSpec("Friends");
+        ts2.setContent(R.id.tab_friends);
+        ts2.setIndicator("Friends");
+        tabHost.addTab(ts2);
+
+
+        lv2 = (ListView) v.findViewById(R.id.listView2);
+        new Thread(new ClientThread()).start();
+        mla2 = new Message_list_adapter_2();
+        lv2.setAdapter(mla2);
+        //message_list_2.add(new Message("tvdung","nooooooo", 2));
+
+        return v;
     }
 
+    class ClientThread implements Runnable {
+
+        @Override
+        public void run() {
+
+            try {
+                InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+
+                socket = new Socket(serverAddr, SERVERPORT);
+
+                BufferedReader in =
+                        new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String msg;
+                while ((msg = in.readLine())!=null) {
+                    Log.e("hihi", msg);
+
+                    message_list_2.add(new Message("tvdung", msg, 0));
+                    ((BaseAdapter) lv2.getAdapter()).notifyDataSetChanged();
+                    //mla2 = new Message_list_adapter_2();
+                    //lv2.setAdapter(mla2);
+                }
+
+            } catch (UnknownHostException e1) {
+                e1.printStackTrace();
+                Log.e("ngu", "vai loz");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+
+    }
+
+    private class Message_list_adapter_2  extends ArrayAdapter<Message> {
+        public Message_list_adapter_2() {
+            super(getActivity(), R.layout.message_list_view, message_list_2);
+        }
+
+        @Override
+        public View getView(int position, View v, ViewGroup parent) {
+
+            if (v == null) {
+                v = getActivity().getLayoutInflater().inflate(R.layout.message_list_view, parent, false);
+            }
+            Message message = message_list_2.get(position);
+            TextView content = (TextView) v.findViewById(R.id.message);
+            content.setText(message.getContent());
+            return v;
+        }
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -85,6 +178,10 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
     @Override
     public void onDetach() {
         super.onDetach();
