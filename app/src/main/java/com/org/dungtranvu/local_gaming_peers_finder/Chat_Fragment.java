@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -44,8 +45,8 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
     List<Message> message_list_2 = new ArrayList<Message>();
-    private static final int SERVERPORT = 5000;
-    private static final String SERVER_IP = "192.168.100.3";
+    private static final int SERVERPORT = 6000;
+    private static final String SERVER_IP = "192.168.100.4";
     Socket socket;
     ListView lv2;
     Message_list_adapter_2 mla2;
@@ -122,19 +123,32 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
                 BufferedReader in =
                         new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 String msg;
+                msg = in.readLine();
+                Log.d("momo", msg);
+                out.print("dung");//Problem here
+                msg = in.readLine();
+                Log.d("bobo",msg);
                 while ((msg = in.readLine())!=null) {
-                    Log.e("hihi", msg);
+                    Log.d("Server said", msg);
 
                     message_list_2.add(new Message("tvdung", msg, 0));
-                    ((BaseAdapter) lv2.getAdapter()).notifyDataSetChanged();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // This code will always run on the UI thread, therefore is safe to modify UI elements.
+                            ((BaseAdapter) lv2.getAdapter()).notifyDataSetChanged();
+                        }
+                    });
+
                     //mla2 = new Message_list_adapter_2();
                     //lv2.setAdapter(mla2);
                 }
 
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
-                Log.e("ngu", "vai loz");
+                //Log.e("ngu", "vai loz");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
