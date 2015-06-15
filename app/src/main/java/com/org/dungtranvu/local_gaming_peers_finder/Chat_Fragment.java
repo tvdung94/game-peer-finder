@@ -45,7 +45,7 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
     List<Message> message_list_2 = new ArrayList<Message>();
-    private static final int SERVERPORT = 8000;
+    private static final int SERVERPORT = 6000;
     private static final String SERVER_IP = "192.168.100.4";
     Socket socket;
     ListView lv2;
@@ -126,11 +126,13 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
                 PrintWriter out = new PrintWriter (socket.getOutputStream(), true);
                 String msg = in.readLine();
 
-                msg = in.readLine();
+
 
                 // THIS LINE WRITES OUT TO THE SERVER===
-                out.println("dung");//<<<<<<<<<<<<<<<<<<<<<<<<<<<<Problem here
+                out.write("dung\r\n");//<<<<<<<<<<<<<<<<<<<<<<<<<<<<Problem here
                 out.flush();
+                msg = in.readLine();
+                Log.d("here", msg);
                 //======================================
 
 
