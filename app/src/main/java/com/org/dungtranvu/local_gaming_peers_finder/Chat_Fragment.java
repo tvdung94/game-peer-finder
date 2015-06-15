@@ -45,7 +45,7 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
     List<Message> message_list_2 = new ArrayList<Message>();
-    private static final int SERVERPORT = 6000;
+    private static final int SERVERPORT = 8000;
     private static final String SERVER_IP = "192.168.100.4";
     Socket socket;
     ListView lv2;
@@ -123,14 +123,18 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
                 BufferedReader in =
                         new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                String msg;
+                PrintWriter out = new PrintWriter (socket.getOutputStream(), true);
+                String msg = in.readLine();
+
                 msg = in.readLine();
-                Log.d("momo", msg);
-                out.print("dung");//Problem here
-                msg = in.readLine();
-                Log.d("bobo",msg);
-                while ((msg = in.readLine())!=null) {
+
+                // THIS LINE WRITES OUT TO THE SERVER===
+                out.println("dung");//<<<<<<<<<<<<<<<<<<<<<<<<<<<<Problem here
+                out.flush();
+                //======================================
+
+
+                while ((msg = in.readLine()) != null) {
                     Log.d("Server said", msg);
 
                     message_list_2.add(new Message("tvdung", msg, 0));
@@ -145,6 +149,8 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
                     //mla2 = new Message_list_adapter_2();
                     //lv2.setAdapter(mla2);
                 }
+                in.close();
+                out.close();
 
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
