@@ -42,8 +42,8 @@ LeaderBoard_Fragment.OnFragmentInteractionListener{
     ViewPager mViewPager;
 
     Socket socket;
-    private static final int Port = 5000;
-    private static final String IP = "10.0.2.2";
+    private static final int SERVERPORT = 6000;
+    private static final String SERVER_IP = "192.168.100.4";
 
     @Override
     public void onFragmentInteraction(Uri uri) {

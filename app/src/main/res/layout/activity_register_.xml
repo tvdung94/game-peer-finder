@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Username"
-        android:id="@+id/textView4"
+        android:id="@+id/textView"
         android:layout_marginTop="155dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
@@ -22,31 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Password"
+        android:text="SummonerID"
         android:id="@+id/textView5"
         android:layout_marginTop="45dp"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Re-type PW"
-        android:id="@+id/textView6"
-        android:layout_marginTop="53dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Phone No"
-        android:id="@+id/textView7"
-        android:layout_below="@+id/textView6"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,29 +70,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/password"
-        android:layout_above="@+id/textView6"
+        android:id="@+id/summoner"
+        android:layout_alignBottom="@+id/textView5"
         android:layout_alignStart="@+id/username"
         android:layout_alignEnd="@+id/username" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password2"
-        android:layout_above="@+id/textView7"
-        android:layout_alignStart="@+id/password"
-        android:layout_alignEnd="@+id/password" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/phone_number"
-        android:layout_alignBottom="@+id/textView7"
-        android:layout_alignStart="@+id/password2"
-        android:layout_alignEnd="@+id/password2" />
 
 </RelativeLayout>

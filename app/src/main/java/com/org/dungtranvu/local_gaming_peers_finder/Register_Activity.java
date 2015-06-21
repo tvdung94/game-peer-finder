@@ -11,7 +11,9 @@ import android.widget.Toast;
 public class Register_Activity extends ActionBarActivity {
 
     public void create_account(View v) {
-        Toast.makeText(Register_Activity.this, "You just created an account", Toast.LENGTH_LONG).show();
+        
+
+        Toast.makeText(Register_Activity.this, "Your account has been created", Toast.LENGTH_LONG).show();
         finish();
     }
 

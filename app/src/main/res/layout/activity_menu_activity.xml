@@ -9,81 +9,35 @@
     tools:context="com.org.dungtranvu.local_gaming_peers_finder.Menu_activity">
 
     <TextView
-                style = "@style/MyTextStyle"
-                android:text="Username"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:layout_above="@+id/textView2"
-        android:layout_toStartOf="@+id/sign_up"
-        android:layout_marginBottom="79dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Welcome to the Alliance"
         android:id="@+id/textView"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Password"
-        android:id="@+id/textView2"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/textView1"
-        android:textColor="@android:color/white"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:id="@+id/textView_show_progress"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
         android:textColor="@android:color/white"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
-        android:text="password" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:id="@+id/username"
-        android:layout_alignTop="@+id/textView1"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/sign_in"
-        android:text="username" />
+        android:layout_marginTop="165dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sign in"
-        android:id="@+id/sign_in"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="67dp"
+        android:textColor="@android:color/white"
+        android:text="OK"
         android:clickable="true"
         android:onClick="sign_in"
-        android:textColor="@android:color/white"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sign up"
-        android:id="@+id/sign_up"
-        android:layout_below="@+id/sign_in"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
-        android:clickable="true"
-        android:onClick="sign_up"
-        android:textColor="@android:color/white"/>
-
+        android:id="@+id/textView2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>
