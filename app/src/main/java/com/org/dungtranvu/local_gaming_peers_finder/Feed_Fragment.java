@@ -3,6 +3,7 @@ package com.org.dungtranvu.local_gaming_peers_finder;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -124,7 +125,7 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         }
     }
 
-    public class Message_list_adapter extends ArrayAdapter<Message>  {
+    private class Message_list_adapter extends ArrayAdapter<Message>  {
         public Message_list_adapter() {
             super(context, R.layout.new_feed_list_view, message_list);
         }
@@ -142,6 +143,8 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
             return v;
         }
     }
+
+
 
     @Override
     public void onDestroyView() {

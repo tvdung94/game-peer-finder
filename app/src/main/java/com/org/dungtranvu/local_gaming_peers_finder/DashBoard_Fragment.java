@@ -1,12 +1,24 @@
 package com.org.dungtranvu.local_gaming_peers_finder;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,6 +40,8 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    Context context;
+    List<User> Users = new ArrayList<User>();
 
     /**
      * Use this factory method to create a new instance of
@@ -58,13 +72,27 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dash_board_, container, false);
+        View v = inflater.inflate(R.layout.fragment_dash_board_, container, false);
+        context = getActivity();
+        ListView DashBoard = (ListView) v.findViewById(R.id.listView_DashBoard);
+        DashBoard.setAdapter(new DashBoardAdapter());
+        (new UpdateDashBoard()).execute();
+        DashBoard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id ) {
+                    startActivity(new Intent(getActivity(), showDetails.class));
+            }
+        }
+
+        );
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,6 +110,50 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    private class DashBoardAdapter extends ArrayAdapter<User> {
+        public DashBoardAdapter() {
+            super(context, R.layout.dashboard_listview, Users);
+        }
+        @Override
+        public View getView(int position, View v, ViewGroup parent) {
+            if (v==null)
+                v = getActivity().getLayoutInflater().inflate(R.layout.dashboard_listview, parent, false);
+            User user = Users.get(position);
+            TextView sid = (TextView) v.findViewById(R.id.textView_SummonerID);
+            sid.setText("SummonnerID: " + user.getSummonerID());
+            TextView username = (TextView) v.findViewById(R.id.textView_Username);
+            username.setText("Username: " +user.getUsername());
+            String wr = Double.toString(user.getWinrate());
+            TextView winrate = (TextView) v.findViewById(R.id.textView_Winrate);
+            winrate.setText("Winrate: " + wr);
+            return v;
+        }
+    }
+    private class UpdateDashBoard extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            //clear the users list
+
+
+
+            //Receive data from server after an interval
+
+
+            //Get additional data from riot
+
+
+            Users.add(new User("bobo","tvdung", 1.00, 1.00, 10, 100));
+            Users.add(new User("carrier","tvdung94", 2.00, 2.00, 15, 1));
+            Users.add(new User("puck123","tvdung49", 2.00, 1.00, 10, 10));
+            publishProgress();
+            return null;
+        }
+        protected void onProgressUpdate(Void... progress) {
+            //update the UI
         }
     }
 
