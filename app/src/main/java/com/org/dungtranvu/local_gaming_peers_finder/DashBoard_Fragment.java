@@ -87,7 +87,9 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
         DashBoard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id ) {
-                    startActivity(new Intent(getActivity(), showDetails.class));
+                    Intent next = new Intent(getActivity(), showDetails.class);
+                    next.putExtra("SummonerName", Users.get(position).getSummonerID());
+                startActivity(next);
             }
         }
 
@@ -146,9 +148,9 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
             //Get additional data from riot
 
 
-            Users.add(new User("bobo","tvdung", 1.00, 1.00, 10, 100));
-            Users.add(new User("carrier","tvdung94", 2.00, 2.00, 15, 1));
-            Users.add(new User("puck123","tvdung49", 2.00, 1.00, 10, 10));
+            Users.add(new User("tvdung","illegal summoner", 1.00, 1.00, 10, 100));
+            Users.add(new User("linda","1mEther", 2.00, 2.00, 15, 1));
+            Users.add(new User("hans","hans001", 2.00, 1.00, 10, 10));
             publishProgress();
             return null;
         }

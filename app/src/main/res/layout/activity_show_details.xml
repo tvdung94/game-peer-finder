@@ -24,4 +24,22 @@
         android:layout_below="@+id/textView_showDetails_Name"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView_showDetails_Wins"
+        android:layout_below="@+id/textView_showDetails_Level"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView_showDetails_Losses"
+        android:layout_below="@+id/textView_showDetails_Wins"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

@@ -9,6 +9,7 @@ public class User {
     private double Longtitude;
     private double Lattitude;
     private double winrate;
+    private int region;
     User(String Username, String SummonerID, double Longtitude, double Lattitude, int wins, int losses) {
         this.Username = Username;
         this.SummonerID = SummonerID;
