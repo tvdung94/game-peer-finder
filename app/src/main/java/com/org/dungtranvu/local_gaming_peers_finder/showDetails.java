@@ -19,20 +19,27 @@ import com.robrua.orianna.type.exception.APIException;
 public class showDetails extends ActionBarActivity {
     TextView summoner_name;
     TextView summoner_lvl;
-    TextView summoner_ranked_wins;
-    TextView summoner_ranked_losses;
+    TextView summoner_solo_ranked_winrate;
+    TextView summoner_team5x5_ranked_winrate;
+    TextView summoner_unranked_winrate;
     String name;
     String lvl;
-    String wins="";
-    String losses="";
+    String ranked_solo_winrate;
+    String total_ranked_solo_matches;
+    String ranked_team_winrate;
+    String total_ranked_team_matches;
+    String unranked_winrate;
+    String total_unranked_matches;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_details);
          summoner_name = (TextView) findViewById(R.id.textView_showDetails_Name);
          summoner_lvl = (TextView) findViewById(R.id.textView_showDetails_Level);
-         summoner_ranked_wins = (TextView) findViewById(R.id.textView_showDetails_Wins);
-         summoner_ranked_losses = (TextView) findViewById(R.id.textView_showDetails_Losses);
+         summoner_solo_ranked_winrate = (TextView) findViewById(R.id.textView_showDetails_RankedSolo_Winrate);
+         summoner_team5x5_ranked_winrate = (TextView) findViewById(R.id.textView_showDetails_Ranked5x5_Winrate);
+         summoner_unranked_winrate = (TextView) findViewById(R.id.textView_showDetails_Unranked_Winrate);
         (new GetDataFromRiot()).execute();
 
     }
@@ -50,9 +57,35 @@ public class showDetails extends ActionBarActivity {
                 name = summoner.getName();
                 lvl = Long.toString(summoner.getLevel());
                 Map<PlayerStatsSummaryType, PlayerStatsSummary> InfoMap = summoner.getStats();
-                PlayerStatsSummary RankInfo = InfoMap.get(PlayerStatsSummaryType.RankedSolo5x5);
-                wins = Integer.toString(RankInfo.getWins());
-                losses = Integer.toString(RankInfo.getLosses());
+
+                PlayerStatsSummary RankSoloInfo = InfoMap.get(PlayerStatsSummaryType.RankedSolo5x5);
+                int RankedSolo_wins = 0, RankedSolo_losses = 0;
+                if (RankSoloInfo != null) {
+                    RankedSolo_wins = RankSoloInfo.getWins();
+                    RankedSolo_losses = RankSoloInfo.getLosses();
+                }
+                total_ranked_solo_matches = Integer.toString(RankedSolo_wins + RankedSolo_losses);
+                ranked_solo_winrate = String.format("%.2f",(double) RankedSolo_wins/(RankedSolo_losses + RankedSolo_wins)*100);
+
+                PlayerStatsSummary Ranked5x5Info = InfoMap.get(PlayerStatsSummaryType.RankedTeam5x5);
+                int Ranked5x5_wins = 0, Ranked5x5_losses = 0;
+                if (Ranked5x5Info != null) {
+                    Ranked5x5_wins = Ranked5x5Info.getWins();
+                    Ranked5x5_losses = Ranked5x5Info.getLosses();
+                }
+                total_ranked_team_matches = Integer.toString(Ranked5x5_wins + Ranked5x5_losses);
+                ranked_team_winrate = String.format("%.2f", (double) Ranked5x5_wins/(Ranked5x5_wins + Ranked5x5_losses) *100);
+
+                PlayerStatsSummary UnrankedInfo = InfoMap.get(PlayerStatsSummaryType.Unranked);
+                int Unranked_wins = 0, Unranked_losses;
+                if (UnrankedInfo != null) {
+                    Unranked_wins = UnrankedInfo.getWins();
+                    Log.d("Unraked wins", Integer.toString(Unranked_wins));
+                }
+                //Unranked_losses = UnrankedInfo.getLosses();
+                //Log.d("Unranked losses", Integer.toString(Unranked_losses));
+                total_unranked_matches = Integer.toString(Unranked_wins );
+                //unranked_winrate = Double.toString((double) Unranked_wins/(Unranked_wins + Unranked_losses) *100);
             }
             catch (APIException e) {
 
@@ -68,10 +101,14 @@ public class showDetails extends ActionBarActivity {
         }
 
         protected void onPostExecute(Integer doo) {
-            summoner_name.setText(name);
-            summoner_lvl.setText(lvl);
-            summoner_ranked_wins.setText(wins);
-            summoner_ranked_losses.setText(losses);
+            summoner_name.setText("Summoner: " + name);
+            summoner_lvl.setText("Summoner lvl: " + lvl);
+            summoner_solo_ranked_winrate.setText("Ranked solo matches played: " + total_ranked_solo_matches
+            + ". Winrate: " + ranked_solo_winrate + "%.");
+            summoner_team5x5_ranked_winrate.setText("Ranked 5x5 matches played: " + total_ranked_team_matches
+            + ". Winrate: " + ranked_team_winrate + "%.");
+            summoner_unranked_winrate.setText("Unranked wins: " + total_unranked_matches
+            + ".");
 
         }
     }
