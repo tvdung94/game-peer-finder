@@ -46,12 +46,57 @@ public class showDetails extends ActionBarActivity {
     private class GetDataFromRiot extends AsyncTask<Void, Void, Integer> {
         int doo;
         protected Integer doInBackground(Void... Params) {
-            RiotAPI.setMirror(Region.NA);
-            RiotAPI.setRegion(Region.NA);
-            RiotAPI.setAPIKey("f35f8670-d654-4f66-8fbd-af28ccb5ad3c");
+
             Bundle extra = getIntent().getExtras();
-            String SummonerName;
-            SummonerName = extra.getString("SummonerName");
+            String SummonerName = extra.getString("SummonerName");
+            String region = extra.getString("Region");
+            switch (region) {
+                case "NA" :
+                    RiotAPI.setMirror(Region.NA);
+                    RiotAPI.setRegion(Region.NA);
+                    break;
+                case "KR" :
+                    RiotAPI.setMirror(Region.KR);
+                    RiotAPI.setRegion(Region.KR);
+                    break;
+                case "EUW":
+                    RiotAPI.setMirror(Region.EUW);
+                    RiotAPI.setRegion(Region.EUW);
+                    break;
+                case "LAN":
+                    RiotAPI.setMirror(Region.LAN);
+                    RiotAPI.setRegion(Region.LAN);
+                    break;
+                case "LAS":
+                    RiotAPI.setMirror(Region.LAS);
+                    RiotAPI.setRegion(Region.LAS);
+                    break;
+                case "OCE":
+                    RiotAPI.setMirror(Region.OCE);
+                    RiotAPI.setRegion(Region.OCE);
+                    break;
+                case "PBE":
+                    RiotAPI.setMirror(Region.PBE);
+                    RiotAPI.setRegion(Region.PBE);
+                    break;
+                case "RU":
+                    RiotAPI.setMirror(Region.RU);
+                    RiotAPI.setRegion(Region.RU);
+                    break;
+                case "TR":
+                    RiotAPI.setMirror(Region.TR);
+                    RiotAPI.setRegion(Region.TR);
+                    break;
+                case "BR":
+                    RiotAPI.setMirror(Region.BR);
+                    RiotAPI.setRegion(Region.BR);
+                    break;
+                case "EUNE":
+                    RiotAPI.setMirror(Region.EUNE);
+                    RiotAPI.setRegion(Region.EUNE);
+                    break;
+            }
+            RiotAPI.setAPIKey("f35f8670-d654-4f66-8fbd-af28ccb5ad3c");
             try {
                 Summoner summoner = RiotAPI.getSummonerByName(SummonerName);
                 name = summoner.getName();

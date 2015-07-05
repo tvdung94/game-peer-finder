@@ -2,6 +2,7 @@ package com.org.dungtranvu.local_gaming_peers_finder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -98,10 +100,22 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         context = getActivity();
         view = v;
 
-        message_list.add(new Message("tvdung", "hihi", 0));
+        message_list.add(new Message("tvdung", "Today is a nice day! Anyone wanna hangout? ", 10, "Ye I do!!"));
         ListView lv = (ListView) v.findViewById(R.id.listView);
         Message_list_adapter mla = new Message_list_adapter();
         lv.setAdapter(mla);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Message current_message = message_list.get(position);
+                Intent next = new Intent(getActivity(), showFeedDetails.class);
+                next.putExtra("Username", current_message.getUsername());
+                next.putExtra("Likes", current_message.getLike());
+                next.putExtra("Replies", current_message.getReplies());
+                next.putExtra("Likes_count", current_message.getReplies_count());
+                startActivity(next);
+            }
+        });
         //lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.new_feed_list_view, message_list));
 
         return v;
@@ -136,9 +150,13 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                 v = getActivity().getLayoutInflater().inflate(R.layout.new_feed_list_view, parent, false);
             }
             Message message = message_list.get(position);
+
             TextView content = (TextView) v.findViewById(R.id.content);
             content.setText(message.getContent());
 
+            TextView specs = (TextView) v.findViewById(R.id.specs);
+            specs.setText(Integer.toString(message.getLike()) + " Likes " + Integer.toString(message.getReplies_count())
+            + " Replies");
 
             return v;
         }

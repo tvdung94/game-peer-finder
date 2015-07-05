@@ -8,16 +8,15 @@ public class User {
     private String Username;
     private double Longtitude;
     private double Lattitude;
-    private double winrate;
-    private int region;
-    User(String Username, String SummonerID, double Longtitude, double Lattitude, int wins, int losses) {
+    private String winrate;
+    private String region;
+    User(String Username, String SummonerID, double Longtitude, double Lattitude, String winrate, String region) {
         this.Username = Username;
         this.SummonerID = SummonerID;
         this.Longtitude = Longtitude;
         this.Lattitude = Lattitude;
-        if (losses == 0)
-            this.winrate = 100;
-        else this.winrate = (wins/(wins + losses)) * 100;
+        this.winrate = winrate;
+        this.region = region;
     }
     public void setSummonerID(String summonerID) {
         this.SummonerID = summonerID;
@@ -31,9 +30,10 @@ public class User {
     public void setLattitude(double Lattitude) {
         this.Lattitude = Lattitude;
     }
-    public void setWinrate(int wins, int losses) {
-        this.winrate = (double) wins / (wins + losses);
+    public void setWinrate(String winrate) {
+        this.winrate = winrate;
     }
+    public void setRegion(String region) { this.region = region; }
 
     public String getSummonerID() {
         return SummonerID;
@@ -49,7 +49,9 @@ public class User {
 
     public double getLattitude() {return Lattitude;}
 
-    public double getWinrate() {return winrate;}
+    public String getWinrate() {return winrate;}
+
+    public String getRegion() {return region; }
 
 
 }

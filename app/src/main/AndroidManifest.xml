@@ -50,6 +50,10 @@
             android:name=".showDetails"
             android:label="@string/title_activity_show_details" >
         </activity>
+        <activity
+            android:name=".showFeedDetails"
+            android:label="@string/title_activity_show_feed_details" >
+        </activity>
     </application>
 
 </manifest>

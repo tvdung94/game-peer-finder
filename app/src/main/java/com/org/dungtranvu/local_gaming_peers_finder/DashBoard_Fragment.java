@@ -7,12 +7,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +42,7 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
     private OnFragmentInteractionListener mListener;
     Context context;
     List<User> Users = new ArrayList<User>();
+    ListView DashBoard;
 
     /**
      * Use this factory method to create a new instance of
@@ -81,7 +82,7 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_dash_board_, container, false);
         context = getActivity();
-        ListView DashBoard = (ListView) v.findViewById(R.id.listView_DashBoard);
+         DashBoard = (ListView) v.findViewById(R.id.listView_DashBoard);
         DashBoard.setAdapter(new DashBoardAdapter());
         (new UpdateDashBoard()).execute();
         DashBoard.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,6 +90,7 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id ) {
                     Intent next = new Intent(getActivity(), showDetails.class);
                     next.putExtra("SummonerName", Users.get(position).getSummonerID());
+                    next.putExtra("Region", Users.get(position).getRegion());
                 startActivity(next);
             }
         }
@@ -128,7 +130,7 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
             sid.setText("SummonnerID: " + user.getSummonerID());
             TextView username = (TextView) v.findViewById(R.id.textView_Username);
             username.setText("Username: " +user.getUsername());
-            String wr = Double.toString(user.getWinrate());
+            String wr = user.getWinrate();
             TextView winrate = (TextView) v.findViewById(R.id.textView_Winrate);
             winrate.setText("Winrate: " + wr);
             return v;
@@ -148,14 +150,18 @@ public class DashBoard_Fragment extends android.support.v4.app.Fragment {
             //Get additional data from riot
 
 
-            Users.add(new User("tvdung","illegal summoner", 1.00, 1.00, 10, 100));
-            Users.add(new User("linda","1mEther", 2.00, 2.00, 15, 1));
-            Users.add(new User("hans","hans001", 2.00, 1.00, 10, 10));
+            Users.add(new User("tvdung","illegal summoner", 1.00, 1.00, "100%", "NA"));
+            Users.add(new User("linda","1mEther", 2.00, 2.00, "50%", "NA"));
+            Users.add(new User("hans","hans001", 2.00, 1.00, "75%", "NA"));
             publishProgress();
             return null;
         }
         protected void onProgressUpdate(Void... progress) {
             //update the UI
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            ((BaseAdapter) DashBoard.getAdapter()).notifyDataSetChanged();
         }
     }
 

@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
@@ -16,7 +15,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/specs"
         android:layout_below="@+id/content"
         android:layout_alignParentStart="true" />

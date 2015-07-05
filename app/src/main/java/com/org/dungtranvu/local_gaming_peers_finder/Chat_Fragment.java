@@ -139,7 +139,7 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
                 while ((msg = in.readLine()) != null) {
                     Log.d("Server said", msg);
 
-                    message_list_2.add(new Message("tvdung", msg, 0));
+                   // message_list_2.add(new Message("tvdung", msg, 0));
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
