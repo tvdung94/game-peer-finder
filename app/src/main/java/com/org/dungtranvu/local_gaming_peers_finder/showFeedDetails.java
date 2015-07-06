@@ -1,18 +1,66 @@
 package com.org.dungtranvu.local_gaming_peers_finder;
 
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class showFeedDetails extends ActionBarActivity {
 
+    TextView tv_username;
+    TextView tv_content;
+    TextView tv_specs;
+    ListView lv;
+    List<String> replies_list = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_feed_details);
+        tv_username = (TextView) findViewById(R.id.textView_showFeedDetails_Username);
+        tv_content = (TextView) findViewById(R.id.textView_showFeedDetails_Content);
+        tv_specs = (TextView) findViewById(R.id.textView_showFeedDetails_Specs);
+        lv = (ListView) findViewById(R.id.listView_showFeedDetails_replies);
+        (new UpdateFeedDetails()).execute();
     }
+    private class UpdateFeedDetails extends AsyncTask<Void, Void, Void> {
 
+        String username;
+        String content;
+        String replies;
+        int likes;
+        int replies_count;
+        @Override
+        protected Void doInBackground(Void... params) {
+            Bundle extra = getIntent().getExtras();
+            username = extra.getString("Username");
+            content = extra.getString("Content");
+            replies = extra.getString("Replies");
+            likes = extra.getInt("Likes");
+            replies_count = extra.getInt("Replies_count");
+            int start = 0;
+            for (int i = 0; i < replies.length(); i++) {
+                if (replies.charAt(i) == '\n') {
+                    replies_list.add(replies.substring(start, i));
+                    start = i + 1;
+                }
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void params) {
+            tv_username.setText(username);
+            tv_content.setText(content);
+            tv_specs.setText(Integer.toString(likes)+ " Likes " + Integer.toString(replies_count)+ " Replies");
+            lv.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.showfeeddetails_replies_listview, replies_list));
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -100,7 +100,7 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         context = getActivity();
         view = v;
 
-        message_list.add(new Message("tvdung", "Today is a nice day! Anyone wanna hangout? ", 10, "Ye I do!!"));
+        message_list.add(new Message("tvdung", "Today is a nice day! Anyone wanna hangout? ", 10, "abc: Ye I do!!\njoshi: nah i'd rather play smash..\n"));
         ListView lv = (ListView) v.findViewById(R.id.listView);
         Message_list_adapter mla = new Message_list_adapter();
         lv.setAdapter(mla);
@@ -112,7 +112,8 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                 next.putExtra("Username", current_message.getUsername());
                 next.putExtra("Likes", current_message.getLike());
                 next.putExtra("Replies", current_message.getReplies());
-                next.putExtra("Likes_count", current_message.getReplies_count());
+                next.putExtra("Replies_count", current_message.getReplies_count());
+                next.putExtra("Content", current_message.getContent());
                 startActivity(next);
             }
         });
