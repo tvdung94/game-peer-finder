@@ -34,6 +34,7 @@ public class showFeedDetails extends ActionBarActivity {
         String username;
         String content;
         String replies;
+        String liked_users;
         int likes;
         int replies_count;
         @Override
@@ -44,6 +45,7 @@ public class showFeedDetails extends ActionBarActivity {
             replies = extra.getString("Replies");
             likes = extra.getInt("Likes");
             replies_count = extra.getInt("Replies_count");
+            liked_users = extra.getString("Liked_users");
             int start = 0;
             for (int i = 0; i < replies.length(); i++) {
                 if (replies.charAt(i) == '\n') {

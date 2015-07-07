@@ -18,4 +18,14 @@
         android:id="@+id/specs"
         android:layout_below="@+id/content"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Like"
+        android:id="@+id/button_like"
+        android:onClick="like"
+        android:focusable="false"
+        android:layout_below="@+id/specs"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

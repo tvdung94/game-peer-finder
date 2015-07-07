@@ -3,6 +3,7 @@ package com.org.dungtranvu.local_gaming_peers_finder;
 import java.net.Socket;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 
 public class MainActivity extends FragmentActivity implements  Chat_Fragment.OnFragmentInteractionListener,
@@ -90,6 +93,10 @@ LeaderBoard_Fragment.OnFragmentInteractionListener{
         return super.onOptionsItemSelected(item);
     }
 
+    public void like(View v) {
+        Toast.makeText(getApplicationContext(), "You just clicked like button", Toast.LENGTH_SHORT).show();
+        Log.d("like button", "button was clicked");
+    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
