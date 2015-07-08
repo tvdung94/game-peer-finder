@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
     View view;
     Context context;
     List<Message> message_list = new ArrayList<Message>();
+    ListView lv;
 
     /**
      * Use this factory method to create a new instance of
@@ -102,8 +105,9 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         view = v;
 
         message_list.add(new Message("tvdung", "Today is a nice day! Anyone wanna hangout? ", 10, "abc: Ye I do!!\njoshi: nah i'd rather play smash..\n"
-        ,"tvdung joshi"));
-        ListView lv = (ListView) v.findViewById(R.id.listView);
+        ,"tvdung joshi "));
+        message_list.add(new Message("uk96","Anyone wanna play fifa?", 0,"\n",""));
+         lv = (ListView) v.findViewById(R.id.listView);
         Message_list_adapter mla = new Message_list_adapter();
         lv.setAdapter(mla);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,11 +124,32 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                 startActivity(next);
             }
         });
+        (new UpdateFeedUI()).execute();
         //lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.new_feed_list_view, message_list));
 
         return v;
     }
 
+    private class UpdateFeedUI extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                while (true) {
+                    publishProgress();
+                    Thread.sleep(5000);
+                }
+            }
+            catch (InterruptedException e) {
+                    Log.e("Error", "InterruptedException");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... params) {
+            ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+        }
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -143,6 +168,9 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         }
     }
 
+    public boolean check(String username, Message message) {
+        return !message.getLiked_users().contains(username);
+    }
     private class Message_list_adapter extends ArrayAdapter<Message>  {
         public Message_list_adapter() {
             super(context, R.layout.new_feed_list_view, message_list);
@@ -161,7 +189,25 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
             TextView specs = (TextView) v.findViewById(R.id.specs);
             specs.setText(Integer.toString(message.getLike()) + " Likes " + Integer.toString(message.getReplies_count())
             + " Replies");
+            Button like_button = (Button) v.findViewById(R.id.button_like);
+            like_button.setTag(position);
+            like_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(getContext(), "You just clicked the like button", Toast.LENGTH_SHORT).show();
+                    Bundle extra = getActivity().getIntent().getExtras();
+                    String current_user = extra.getString("username");
+                    int cur_pos = (Integer) v.getTag();
+                    Message cur_mess = message_list.get(cur_pos);
+                    if (check(current_user, cur_mess)) {
+                        cur_mess.addLike();
+                        cur_mess.addLikedUser(current_user);
+                        ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+                        Log.d("Message no." + Integer.toString(cur_pos), Integer.toString(cur_mess.getLike()));
+                    }
 
+                }
+            });
             return v;
         }
     }

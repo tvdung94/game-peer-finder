@@ -37,4 +37,7 @@ public class Message {
     public String getReplies() { return replies; }
     public int getReplies_count() { return replies_count; }
     public String getLiked_users() {return liked_users; }
+
+    public void addLike() { likes++; }
+    public void addLikedUser(String new_user) {liked_users = liked_users + new_user+ " "; }
 }

@@ -27,7 +27,7 @@ public class Menu_activity extends ActionBarActivity {
     private static final int SERVERPORT = 8000;
     private static final String SERVER_IP = "192.168.100.4";
     TextView tv;
-
+    private String username = "joel1234";
 
 
 
@@ -42,7 +42,9 @@ public class Menu_activity extends ActionBarActivity {
     public void sign_in(View v) {
         // YOUR AUTH CODE GOES HERE
 
-        startActivity(new Intent(Menu_activity.this, MainActivity.class));
+        Intent next = new Intent(Menu_activity.this, MainActivity.class);
+        next.putExtra("username", username);
+        startActivity(next);
     }
 
     @Override

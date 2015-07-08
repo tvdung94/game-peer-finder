@@ -93,10 +93,12 @@ LeaderBoard_Fragment.OnFragmentInteractionListener{
         return super.onOptionsItemSelected(item);
     }
 
-    public void like(View v) {
+    /*public void like(View v) {
         Toast.makeText(getApplicationContext(), "You just clicked like button", Toast.LENGTH_SHORT).show();
+        int cur_pos = (Integer)v.getTag();
+
         Log.d("like button", "button was clicked");
-    }
+    }*/
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
