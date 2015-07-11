@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.melnykov.fab.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class showFeedDetails extends ActionBarActivity {
     TextView tv_specs;
     ListView lv;
     List<String> replies_list = new ArrayList<String>();
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,8 @@ public class showFeedDetails extends ActionBarActivity {
         tv_content = (TextView) findViewById(R.id.textView_showFeedDetails_Content);
         tv_specs = (TextView) findViewById(R.id.textView_showFeedDetails_Specs);
         lv = (ListView) findViewById(R.id.listView_showFeedDetails_replies);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
         (new UpdateFeedDetails()).execute();
     }
     private class UpdateFeedDetails extends AsyncTask<Void, Void, Void> {
@@ -61,6 +66,7 @@ public class showFeedDetails extends ActionBarActivity {
             tv_content.setText(content);
             tv_specs.setText(Integer.toString(likes)+ " Likes " + Integer.toString(replies_count)+ " Replies");
             lv.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.showfeeddetails_replies_listview, replies_list));
+            fab.attachToListView(lv);
         }
     }
     @Override

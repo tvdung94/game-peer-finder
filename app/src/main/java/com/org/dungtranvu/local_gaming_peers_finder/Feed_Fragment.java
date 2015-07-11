@@ -124,7 +124,7 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                 startActivity(next);
             }
         });
-        (new UpdateFeedUI()).execute();
+        //(new UpdateFeedUI()).execute();
         //lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.new_feed_list_view, message_list));
 
         return v;
