@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <TabWidget
-                android:id="@android:id/tabs"
+                android:id="@+id/chat_tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TabWidget>
 
@@ -36,13 +36,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/listView2" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/tab_friends"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"></RelativeLayout>
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listView4" />
+                </RelativeLayout>
 
             </FrameLayout>
         </LinearLayout>

@@ -54,6 +54,10 @@
             android:name=".showFeedDetails"
             android:label="@string/title_activity_show_feed_details" >
         </activity>
+        <activity
+            android:name=".WriteReply"
+            android:label="@string/title_activity_write_reply" >
+        </activity>
     </application>
 
 </manifest>

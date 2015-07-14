@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
+
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.org.dungtranvu.local_gaming_peers_finder.showFeedDetails">
+    tools:context="com.org.dungtranvu.local_gaming_peers_finder.showFeedDetails"
+    android:id="@+id/h">
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,21 +39,31 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="340dp"
         android:id="@+id/listView_showFeedDetails_replies"
         android:layout_below="@+id/textView_showFeedDetails_Specs"
         android:layout_centerHorizontal="true" />
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
+
+
+    <EditText
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_showFeedDetails_reply"
+        android:layout_below="@+id/listView_showFeedDetails_replies"
+        android:layout_alignParentStart="true"
+        android:text="Comment..."
+        android:layout_toStartOf="@+id/fab" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_alignBottom="@+id/listView_showFeedDetails_replies"
-        android:layout_alignEnd="@+id/listView_showFeedDetails_replies" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Send"
+        android:clickable="true"
+        android:id="@+id/textView_showFeedDetails_send"
+        android:layout_alignBottom="@+id/editText_showFeedDetails_reply"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

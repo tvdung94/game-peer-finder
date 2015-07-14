@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/hihi"
+
     android:orientation = "vertical"
     tools:context="com.org.dungtranvu.local_gaming_peers_finder.Menu_activity">
 
@@ -12,28 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome to the Alliance"
-        android:id="@+id/textView"
-        android:textColor="@android:color/white"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView_show_progress"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="165dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="OK"
         android:clickable="true"
         android:onClick="sign_in"

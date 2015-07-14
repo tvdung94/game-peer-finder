@@ -20,6 +20,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.melnykov.fab.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,10 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
     View view;
     Context context;
     List<Message> message_list = new ArrayList<Message>();
+    List<Message> message_list2 = new ArrayList<Message>();
     ListView lv;
+    ListView lv2;
+    FloatingActionButton fab;
 
     /**
      * Use this factory method to create a new instance of
@@ -124,6 +129,35 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                 startActivity(next);
             }
         });
+        fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        fab.attachToListView(lv);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  next = new Intent(getActivity(), WriteReply.class);
+                Toast.makeText(getActivity().getApplicationContext(), "You just clicked float active button", Toast.LENGTH_SHORT).show();
+                startActivity(next);
+            }
+        });
+
+        message_list2.add(new Message("tvdung", "Today is a nice day! Anyone wanna hangout? ", 10, "abc: Ye I do!!\njoshi: nah i'd rather play smash..\n"
+                ,"tvdung joshi "));
+        lv2 = (ListView) v.findViewById(R.id.listView3);
+        lv2.setAdapter((new Message_list_adapter2()));
+        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Message current_message = message_list2.get(position);
+                Intent next = new Intent(getActivity(), showFeedDetails.class);
+                next.putExtra("Username", current_message.getUsername());
+                next.putExtra("Likes", current_message.getLike());
+                next.putExtra("Replies", current_message.getReplies());
+                next.putExtra("Replies_count", current_message.getReplies_count());
+                next.putExtra("Content", current_message.getContent());
+                //next.putExtra("Liked_users", current_message.getLiked_users());
+                startActivity(next);
+            }
+        });
         //(new UpdateFeedUI()).execute();
         //lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.new_feed_list_view, message_list));
 
@@ -148,6 +182,7 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
         @Override
         protected void onProgressUpdate(Void... params) {
             ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+            ((BaseAdapter) lv2.getAdapter()).notifyDataSetChanged();
         }
     }
     // TODO: Rename method, update argument and hook method into UI event
@@ -183,6 +218,9 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
             }
             Message message = message_list.get(position);
 
+            TextView username = (TextView) v.findViewById(R.id.textView_NewFeed_Username);
+            username.setText(message.getUsername());
+
             TextView content = (TextView) v.findViewById(R.id.content);
             content.setText(message.getContent());
 
@@ -203,6 +241,50 @@ public class Feed_Fragment extends android.support.v4.app.Fragment {
                         cur_mess.addLike();
                         cur_mess.addLikedUser(current_user);
                         ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+                        Log.d("Message no." + Integer.toString(cur_pos), Integer.toString(cur_mess.getLike()));
+                    }
+
+                }
+            });
+            return v;
+        }
+    }
+
+    private class Message_list_adapter2 extends ArrayAdapter<Message>  {
+        public Message_list_adapter2() {
+            super(context, R.layout.hot_feed_list_view, message_list2);
+        }
+
+        @Override
+        public View getView(int position, View v, ViewGroup parent) {
+            if (v==null) {
+                v = getActivity().getLayoutInflater().inflate(R.layout.hot_feed_list_view, parent, false);
+            }
+            Message message = message_list2.get(position);
+
+            TextView username = (TextView) v.findViewById(R.id.textView_HotFeed_Username);
+            username.setText(message.getUsername());
+
+            TextView content = (TextView) v.findViewById(R.id.textView_HotFeed_Content);
+            content.setText(message.getContent());
+
+            TextView specs = (TextView) v.findViewById(R.id.textView_HotFeed_Specs);
+            specs.setText(Integer.toString(message.getLike()) + " Likes " + Integer.toString(message.getReplies_count())
+                    + " Replies");
+            Button like_button = (Button) v.findViewById(R.id.button_like2);
+            like_button.setTag(position);
+            like_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(getContext(), "You just clicked the like button", Toast.LENGTH_SHORT).show();
+                    Bundle extra = getActivity().getIntent().getExtras();
+                    String current_user = extra.getString("username");
+                    int cur_pos = (Integer) v.getTag();
+                    Message cur_mess = message_list2.get(cur_pos);
+                    if (check(current_user, cur_mess)) {
+                        cur_mess.addLike();
+                        cur_mess.addLikedUser(current_user);
+                        ((BaseAdapter) lv2.getAdapter()).notifyDataSetChanged();
                         Log.d("Message no." + Integer.toString(cur_pos), Integer.toString(cur_mess.getLike()));
                     }
 
