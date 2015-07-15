@@ -25,4 +25,12 @@ public class ChatRoom {
         int min = (conversation.size() < numberofmessages) ? conversation.size(): numberofmessages;
         return result;
     }
+
+    public  String getFriendsName(String username) {
+        return (username.equals(users.get(0))) ? users.get(1) : users.get(0);
+    }
+
+    public ChatMessage getMostRecentMessage() {
+        return conversation.get(conversation.size());
+    }
 }

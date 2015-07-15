@@ -44,12 +44,16 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    List<Message> message_list_2 = new ArrayList<Message>();
+    List<ChatRoom> room_list = new ArrayList<ChatRoom>();
     private static final int SERVERPORT = 6000;
     private static final String SERVER_IP = "192.168.100.4";
     Socket socket;
     ListView lv2;
+    ListView lv;
     Message_list_adapter_2 mla2;
+    ArrayList<String> friend_list;
+    ArrayAdapter<String> aa;
+    String username;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -101,11 +105,16 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
         ts2.setIndicator("Friends");
         tabHost.addTab(ts2);
 
-
+        Bundle b = getActivity().getIntent().getExtras();
+        username = b.getString("username");
         lv2 = (ListView) v.findViewById(R.id.listView2);
-        new Thread(new ClientThread()).start();
+        //new Thread(new ClientThread()).start();
         mla2 = new Message_list_adapter_2();
         lv2.setAdapter(mla2);
+
+        lv = (ListView) v.findViewById(R.id.listView4);
+        aa = new ArrayAdapter<String>(getActivity(), R.layout.friends_list_view, friend_list);
+        lv.setAdapter(aa);
         //message_list_2.add(new Message("tvdung","nooooooo", 2));
 
         return v;
@@ -165,9 +174,9 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
     }
 
-    private class Message_list_adapter_2  extends ArrayAdapter<Message> {
+    private class Message_list_adapter_2  extends ArrayAdapter<ChatRoom> {
         public Message_list_adapter_2() {
-            super(getActivity(), R.layout.message_list_view, message_list_2);
+            super(getActivity(), R.layout.message_list_view, room_list);
         }
 
         @Override
@@ -176,9 +185,12 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
             if (v == null) {
                 v = getActivity().getLayoutInflater().inflate(R.layout.message_list_view, parent, false);
             }
-            Message message = message_list_2.get(position);
-            TextView content = (TextView) v.findViewById(R.id.message);
-            content.setText(message.getContent());
+            ChatRoom chatroom = room_list.get(position);
+            TextView friend = (TextView) v.findViewById(R.id.textView_showFeedDetails_Username);
+            TextView content = (TextView) v.findViewById(R.id.textView_MessageListView_content);
+            friend.setText(chatroom.getFriendsName(username));
+            ChatMessage most_recent_message = chatroom.getMostRecentMessage();
+            content.setText(most_recent_message.getAuthor()+ ": " + most_recent_message.getContent());
             return v;
         }
     }
