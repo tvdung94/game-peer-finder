@@ -107,13 +107,18 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
 
         Bundle b = getActivity().getIntent().getExtras();
         username = b.getString("username");
+        Log.d("username", username);
+        ChatRoom chatroom = new ChatRoom("tvdung", "uk");
+        chatroom.addMessage(new ChatMessage("tvdung", "hello madafaker"));
+        room_list.add(chatroom);
         lv2 = (ListView) v.findViewById(R.id.listView2);
         //new Thread(new ClientThread()).start();
         mla2 = new Message_list_adapter_2();
         lv2.setAdapter(mla2);
 
         lv = (ListView) v.findViewById(R.id.listView4);
-        aa = new ArrayAdapter<String>(getActivity(), R.layout.friends_list_view, friend_list);
+        friend_list = new ArrayList<String>();
+        aa = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.friends_list_view, friend_list);
         lv.setAdapter(aa);
         //message_list_2.add(new Message("tvdung","nooooooo", 2));
 
@@ -186,7 +191,7 @@ public class Chat_Fragment extends android.support.v4.app.Fragment {
                 v = getActivity().getLayoutInflater().inflate(R.layout.message_list_view, parent, false);
             }
             ChatRoom chatroom = room_list.get(position);
-            TextView friend = (TextView) v.findViewById(R.id.textView_showFeedDetails_Username);
+            TextView friend = (TextView) v.findViewById(R.id.textView_MessageListView_Username);
             TextView content = (TextView) v.findViewById(R.id.textView_MessageListView_content);
             friend.setText(chatroom.getFriendsName(username));
             ChatMessage most_recent_message = chatroom.getMostRecentMessage();

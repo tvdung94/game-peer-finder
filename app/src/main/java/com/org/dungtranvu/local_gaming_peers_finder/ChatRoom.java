@@ -31,6 +31,9 @@ public class ChatRoom {
     }
 
     public ChatMessage getMostRecentMessage() {
-        return conversation.get(conversation.size());
+        int size = conversation.size();
+        if (size > 0)
+            return conversation.get(conversation.size() - 1);
+        return null;
     }
 }
